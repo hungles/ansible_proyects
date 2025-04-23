@@ -1,0 +1,10 @@
+---
+- name: Copy SSH key to remote servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Add SSH key to the remote user's authorized_keys file
+      ansible.builtin.authorized_key:
+        user: insert_user
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
